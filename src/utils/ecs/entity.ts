@@ -1,8 +1,9 @@
 import { IComponent } from "./component.h";
+import { IUpdate } from "../update.h";
 
 type constr<T> = { new (...args: unknown[]): T };
 
-export abstract class Entity {
+export abstract class Entity implements IUpdate {
   protected _components: IComponent[] = [];
 
   public get Components(): IComponent[] {
@@ -29,7 +30,6 @@ export abstract class Entity {
     let toRemove: IComponent | undefined;
     let index: number | undefined;
 
-    // Find the component and stores the index
     for (let i = 0; i < this._components.length; i++) {
       const component = this._components[i];
       if (component instanceof constr) {
@@ -39,7 +39,6 @@ export abstract class Entity {
       }
     }
 
-    //Checks to see if we found the component by checking if toRemove and index are null.
     if (toRemove && index) {
       toRemove.Entity = null;
       this._components.splice(index, 1);
@@ -52,6 +51,13 @@ export abstract class Entity {
         return true;
       }
     }
+
     return false;
+  }
+
+  public Update(deltaTime: number): void {
+    for (const component of this._components) {
+      component.Update(deltaTime);
+    }
   }
 }
