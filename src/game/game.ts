@@ -5,6 +5,15 @@ export class Game extends Entity {
 
   public Awake(): void {
     super.Awake();
+
+    // Wait until all the components finish Awakening
+    window.requestAnimationFrame(() => {
+      //Set initial time
+      this._lastTimestamp = Date.now();
+
+      //Enter recursive update loop
+      this.Update();
+    });
   }
 
   public Update(): void {
