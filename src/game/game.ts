@@ -20,6 +20,27 @@ export class Game extends Entity {
       //Enter recursive update loop
       this.Update();
     });
+
+    this.DirtyDraw();
+  }
+
+  private DirtyDraw(): void {
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('width', '500px');
+    canvas.setAttribute('height', '500px');
+    document.body.appendChild(canvas);
+
+    const size = 50;
+    const offset = 10;
+    for (let y = 0; y < 3; y++) {
+      for (let x = 0; x < 3; x++) {
+        const ctx = canvas.getContext('2d')!;
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,0,0,1)';
+        ctx.rect((size + offset) * x, (size + offset) * y, size, size);
+        ctx.fill();
+      }
+    }
   }
 
   public Update(): void {
