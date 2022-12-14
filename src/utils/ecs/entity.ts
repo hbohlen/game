@@ -1,13 +1,20 @@
 import { IComponent } from "./component.h";
 import { IUpdate } from "../update.h";
+import { IAwake } from "../awake.h";
 
 type constr<T> = { new (...args: unknown[]): T };
 
-export abstract class Entity implements IUpdate {
+export abstract class Entity implements IAwake, IUpdate {
   protected _components: IComponent[] = [];
 
   public get Components(): IComponent[] {
     return this._components;
+  }
+
+  public Awake(): void {
+    for (const component of this._components) {
+      component.Awake();
+    }
   }
 
   public AddComponent(component: IComponent): void {
