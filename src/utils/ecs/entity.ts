@@ -1,6 +1,5 @@
-import { IComponent } from "./component.h";
-import { IUpdate } from "../update.h";
-import { IAwake } from "../awake.h";
+import { IComponent } from './component.h';
+import { IUpdate, IAwake } from '../../utils';
 
 type constr<T> = { new (...args: unknown[]): T };
 

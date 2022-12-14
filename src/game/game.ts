@@ -1,7 +1,11 @@
-import { Entity } from "../utils";
+import { Entity } from '../utils';
 
 export class Game extends Entity {
   private _lastTimestamp = 0;
+
+  public Awake(): void {
+    super.Awake();
+  }
 
   public Update(): void {
     //Get the time difference
