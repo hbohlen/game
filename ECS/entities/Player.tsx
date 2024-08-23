@@ -1,28 +1,27 @@
 "use client";
 import { ECS } from "@/store/store";
-import { useEntities } from "miniplex-react";
-import { useMemo } from "react";
+import { useRef, useState } from "react";
+import { Mesh } from "three";
 
 const Player = () => {
-  const entities = useEntities(ECS.world.with("position"));
-
-  const position = useMemo(() => {
-    if (entities.length > 0) {
-      const entity = entities[0];
-      return [entity.position.x, entity.position.y, entity.position.z];
-    }
-    return [0, 0, 0];
-  }, [entities]);
+  const meshRef = useRef<Mesh>(null);
+  const [player] = useState(() =>
+    ECS.world.add({
+      position: { x: 0, y: 0, z: 0 },
+      velocity: { x: 1, y: 0, z: 0 },
+      health: 100,
+    })
+  );
 
   return (
-    entities.length > 0 && (
-      <ECS.Entity entity={entities[0]}>
-        <mesh position={position}>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="blue" />
+    <ECS.Entity entity={player}>
+      <ECS.Component name="three">
+        <mesh ref={meshRef}>
+          <sphereGeometry />
+          <meshStandardMaterial color="hotpink" />
         </mesh>
-      </ECS.Entity>
-    )
+      </ECS.Component>
+    </ECS.Entity>
   );
 };
 

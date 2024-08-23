@@ -1,14 +1,14 @@
-import { useEntities } from "miniplex-react";
 import { useFrame } from "@react-three/fiber";
 import { ECS } from "@/store/store";
 
-const movingEntities = ECS.world.with("position");
+const movingEntities = ECS.world.with("position", "velocity");
+console.log(movingEntities);
 
 const MovementSystem = () => {
   useFrame((_, dt) => {
-    for (const entity of movingEntities.entities) {
-      entity.position.x -= 0.05;
-      console.log(entity.position.x);
+    for (const entity of movingEntities) {
+      entity.entity.transform.position.y += entity.velocity.y * delta;
+      entity.transform.position.z += entity.velocity.z * delta;
     }
   });
 
