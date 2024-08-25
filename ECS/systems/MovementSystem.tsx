@@ -1,14 +1,19 @@
-import { useFrame } from "@react-three/fiber";
 import { ECS } from "@/store/store";
+import { useFrame } from "@react-three/fiber";
+import { Vector3 } from "three";
 
 const movingEntities = ECS.world.with("position", "velocity");
-console.log(movingEntities);
 
 const MovementSystem = () => {
   useFrame((_, dt) => {
     for (const entity of movingEntities) {
-      entity.entity.transform.position.y += entity.velocity.y * delta;
-      entity.transform.position.z += entity.velocity.z * delta;
+      entity.position.x += entity.velocity.x * dt;
+      entity.position.y += entity.velocity.y * dt;
+      entity.position.z += entity.velocity.z * dt;
+
+      entity.three?.translateX(entity.velocity.x * dt);
+      entity.three?.translateY(entity.velocity.y * dt);
+      entity.three?.translateZ(entity.velocity.z * dt);
     }
   });
 

@@ -1,9 +1,9 @@
 // src/types.ts
 import * as THREE from "three";
 
-export type Position = THREE.Vector3;
+export type Position = Vector3;
 
-export type Velocity = THREE.Vector3;
+export type Velocity = Vector3;
 
 export type Health = number;
 

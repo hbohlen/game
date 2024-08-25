@@ -6,7 +6,7 @@ import MovementSystem from "@/ECS/systems/MovementSystem";
 
 export default function Home() {
   return (
-    <Canvas>
+    <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <MovementSystem />

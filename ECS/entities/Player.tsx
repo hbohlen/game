@@ -1,28 +1,21 @@
 "use client";
 import { ECS } from "@/store/store";
 import { useRef, useState } from "react";
-import { Mesh } from "three";
+import { Mesh, Vector3 } from "three";
 
-const Player = () => {
-  const meshRef = useRef<Mesh>(null);
-  const [player] = useState(() =>
-    ECS.world.add({
-      position: { x: 0, y: 0, z: 0 },
-      velocity: { x: 1, y: 0, z: 0 },
-      health: 100,
-    })
-  );
+const Player = () => (
+  <ECS.Entity>
+    <ECS.Component name="position" data={new Vector3(0, 0, 0)} />
 
-  return (
-    <ECS.Entity entity={player}>
-      <ECS.Component name="three">
-        <mesh ref={meshRef}>
-          <sphereGeometry />
-          <meshStandardMaterial color="hotpink" />
-        </mesh>
-      </ECS.Component>
-    </ECS.Entity>
-  );
-};
+    <ECS.Component name="velocity" data={new Vector3(2, 0, 0)} />
+    <ECS.Component name="health" data={100} />
+    <ECS.Component name="three">
+      <mesh position={new Vector3(0, 0, 0)}>
+        <boxGeometry />
+        <meshStandardMaterial color="hotpink" />
+      </mesh>
+    </ECS.Component>
+  </ECS.Entity>
+);
 
 export default Player;
