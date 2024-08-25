@@ -1,19 +1,27 @@
 import { ECS } from "@/store/store";
+
 import { useFrame } from "@react-three/fiber";
 import { Vector3 } from "three";
+import { useKeyboardControls } from "@react-three/drei";
+import { Controls } from "@/types/types";
 
 const movingEntities = ECS.world.with("position", "velocity");
 
 const MovementSystem = () => {
+  const left = useKeyboardControls<Controls>((state) => state.left);
+  const right = useKeyboardControls<Controls>((state) => state.right);
+
   useFrame((_, dt) => {
     for (const entity of movingEntities) {
-      entity.position.x += entity.velocity.x * dt;
-      entity.position.y += entity.velocity.y * dt;
-      entity.position.z += entity.velocity.z * dt;
+      if (left) {
+        entity.position.x += entity.velocity.x * -dt;
+        entity.three?.translateX(entity.velocity.x * -dt);
+      }
 
-      entity.three?.translateX(entity.velocity.x * dt);
-      entity.three?.translateY(entity.velocity.y * dt);
-      entity.three?.translateZ(entity.velocity.z * dt);
+      if (right) {
+        entity.position.x += entity.velocity.x * dt;
+        entity.three?.translateX(entity.velocity.x * dt);
+      }
     }
   });
 

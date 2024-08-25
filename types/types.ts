@@ -1,5 +1,6 @@
 // src/types.ts
 import * as THREE from "three";
+import { Vector3 } from "three";
 
 export type Position = Vector3;
 
@@ -15,3 +16,8 @@ export type Entity = {
   health?: number;
   three?: THREE.Object3D; // Update the type to THREE.Mesh
 };
+
+export enum Controls {
+  left = "left",
+  right = "right",
+}
