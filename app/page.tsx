@@ -9,6 +9,8 @@ import { Suspense, useMemo } from "react";
 import { KeyboardControls, KeyboardControlsEntry } from "@react-three/drei";
 import { Controls } from "@/types/types";
 import { Physics } from "@react-three/rapier";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import { Torus, Box } from "@react-three/drei";
 
 export default function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -20,18 +22,19 @@ export default function App() {
   );
 
   return (
-    <div className="w-full h-full">
+    <div style={{ width: "100vw", height: "100vh" }}>
       <KeyboardControls map={map}>
-        <Canvas orthographic camera={{ zoom: 50, position: [0, 0, 100] }}>
+        <Canvas
+          frameloop="demand"
+          orthographic
+          camera={{ zoom: 50, position: [0, 0, 100] }}
+        >
           <Suspense>
-            <Physics gravity={[0, -1, 0]}>
+            <Physics updateLoop="independent" debug gravity={[0, -1, 0]}>
               <ambientLight />
               <pointLight position={[10, 10, 10]} />
-              <MovementSystem />
-
               <Player />
-            </Physics>
-            <Physics gravity={[0, 0, 0]}>
+
               <Ground />
             </Physics>
           </Suspense>

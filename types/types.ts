@@ -10,7 +10,12 @@ export type Health = number;
 
 export type Three = THREE.Object3D; // Update the type to THREE.Mesh
 
+export type Player = {
+  player: boolean;
+};
+
 export type Entity = {
+  player: Player;
   position?: Position;
   velocity?: Velocity;
   health?: number;
