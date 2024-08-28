@@ -15,11 +15,10 @@ export type Player = {
 };
 
 export type Entity = {
-  player: Player;
-  position?: Position;
-  velocity?: Velocity;
-  health?: number;
-  three?: THREE.Object3D; // Update the type to THREE.Mesh
+  name: string;
+  rigidBody?: any;
+  collider?: any;
+  mesh?: any;
 };
 
 export enum Controls {

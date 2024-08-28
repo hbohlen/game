@@ -1,5 +1,6 @@
 "use client";
 import "../index.css";
+import { ECS } from "@/store/store";
 import { Canvas } from "@react-three/fiber";
 import Player from "@/ECS/entities/Player";
 import Ground from "@/ECS/entities/Ground";

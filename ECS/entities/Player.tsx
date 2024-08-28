@@ -12,6 +12,7 @@ import { Vector3 } from "three";
 
 const Player = () => {
   const playerRef = useRef<RapierRigidBody>(null);
+  const componentRef = useRef(null);
 
   return (
     <ECS.Entity>

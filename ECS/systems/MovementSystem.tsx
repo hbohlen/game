@@ -13,6 +13,8 @@ const MovementSystem = () => {
 
   useFrame((_, dt) => {
     for (const entity of movingEntities) {
+      const rigidBodyRef = entity.three.rigidBody.current;
+
       if (left) {
         entity.position.x += entity.velocity.x * -dt;
         entity.three?.translateX(entity.velocity.x * -dt);
