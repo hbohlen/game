@@ -2,7 +2,7 @@
 import "../index.css";
 import { ECS } from "@/store/store";
 import { Canvas } from "@react-three/fiber";
-import Player from "@/ECS/entities/Player";
+import Player, { spawnPlayer } from "@/ECS/entities/Player";
 import Ground from "@/ECS/entities/Ground";
 import Systems from "@/ECS/systems/Systems";
 import MovementSystem from "@/ECS/systems/MovementSystem";
@@ -10,8 +10,7 @@ import { Suspense, useMemo } from "react";
 import { KeyboardControls, KeyboardControlsEntry } from "@react-three/drei";
 import { Controls } from "@/types/types";
 import { Physics } from "@react-three/rapier";
-import { RigidBody, CuboidCollider } from "@react-three/rapier";
-import { Torus, Box } from "@react-three/drei";
+import { Vector3 } from "three";
 
 export default function App() {
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
@@ -34,6 +33,7 @@ export default function App() {
             <Physics updateLoop="independent" debug gravity={[0, -1, 0]}>
               <ambientLight />
               <pointLight position={[10, 10, 10]} />
+              <MovementSystem />
               <Player />
 
               <Ground />

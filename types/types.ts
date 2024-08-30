@@ -15,10 +15,13 @@ export type Player = {
 };
 
 export type Entity = {
-  name: string;
+  player?: boolean;
+  name?: string;
   rigidBody?: any;
   collider?: any;
-  mesh?: any;
+  jsx?: any;
+  three?: any;
+  velocity: Vector3;
 };
 
 export enum Controls {

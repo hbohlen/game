@@ -5,7 +5,8 @@ import { Vector3 } from "three";
 import { useKeyboardControls } from "@react-three/drei";
 import { Controls } from "@/types/types";
 
-const movingEntities = ECS.world.with("position", "velocity");
+const movingEntities = ECS.world.with("player");
+console.log(movingEntities);
 
 const MovementSystem = () => {
   const left = useKeyboardControls<Controls>((state) => state.left);
@@ -13,16 +14,14 @@ const MovementSystem = () => {
 
   useFrame((_, dt) => {
     for (const entity of movingEntities) {
-      const rigidBodyRef = entity.three.rigidBody.current;
+      const rigidBodyRef = entity.three?.ref.current;
+      console.log("Rigid Body ref: " + rigidBodyRef);
 
       if (left) {
-        entity.position.x += entity.velocity.x * -dt;
-        entity.three?.translateX(entity.velocity.x * -dt);
+        //rigidBodyRef?.applyImpulse(new Vector3(-10, 0, 0));
       }
 
       if (right) {
-        entity.position.x += entity.velocity.x * dt;
-        entity.three?.translateX(entity.velocity.x * dt);
       }
     }
   });
